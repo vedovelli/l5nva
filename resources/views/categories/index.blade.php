@@ -8,6 +8,11 @@
 
  <div class="row">
   <div class="col-md-6">
+    <div class="well">
+      <form action="{!! route('category.index') !!}">
+        <input type="text" class="form-control" name="search" value="{!! $search !!}" placeholder="Digite o termo e pressione enter">
+      </form>
+    </div>
     <table class="table table-bordered table-striped">
       <thead>
         <tr>
@@ -28,6 +33,13 @@
         @endforeach
       </tbody>
     </table>
+
+    <div class="row">
+      <div class="col-md-12 text-center">
+        {!! $categories->render() !!}
+      </div>
+    </div>
+
   </div>
   <div class="col-md-6">
 

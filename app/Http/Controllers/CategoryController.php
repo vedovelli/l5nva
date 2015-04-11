@@ -18,11 +18,20 @@ class CategoryController extends Controller {
 	 */
 	public function index()
 	{
-		$categories = Category::all();
+		$total = 10;
+
+		$search = Request::get('search');
+
+		if(!is_null($search) && $search != '')
+		{
+			$categories = Category::where('name', 'like', '%'.$search.'%')->paginate($total);
+		} else {
+			$categories = Category::paginate($total);
+		}
 
 		$loadedCategory = null;
 
-		return view('categories.index')->with(compact('categories', 'loadedCategory'));
+		return view('categories.index')->with(compact('categories', 'loadedCategory', 'search'));
 	}
 
 	/**
