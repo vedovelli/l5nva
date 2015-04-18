@@ -5,6 +5,13 @@
 </div>
 @endif
 
+{{-- Quando for sucesso --}}
+@if(Session::has('message'))
+<div class="alert alert-success" role="alert">
+  {!! Session::get('message') !!}
+</div>
+@endif
+
 {{-- Quando vier do Validator --}}
 @if(Session::has('errors'))
 <div class="alert alert-danger" role="alert">

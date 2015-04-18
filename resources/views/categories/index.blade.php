@@ -2,7 +2,10 @@
 
 @section('content')
 
-<h1 class="page-header">Categorias</h1>
+<h1 class="page-header">
+  <i class="fa fa-list"></i>
+  Categorias
+</h1>
 
 @include('partials.alerts')
 

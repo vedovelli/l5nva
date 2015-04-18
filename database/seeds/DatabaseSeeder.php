@@ -4,6 +4,7 @@ use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
 
 use App\Category as Category;
+use App\User as User;
 use \DB as DB;
 
 class DatabaseSeeder extends Seeder {
@@ -18,8 +19,35 @@ class DatabaseSeeder extends Seeder {
 		Model::unguard();
 
 		$this->call('CategoriesTableSeeder');
+		$this->call('UsersTableSeeder');
 	}
 
+}
+
+class UsersTableSeeder extends Seeder
+{
+	public function run()
+	{
+
+		$faker = Faker\Factory::create();
+
+		DB::table('users')->delete();
+
+		$user = new User();
+		$user->name = 'Ved';
+		$user->email = 'vedovelli@gmail.com';
+		$user->password = Hash::make('123456');
+		$user->save();
+
+		for($i = 1; $i < 150; $i++)
+		{
+			$user = new User();
+			$user->name = $faker->name;
+			$user->email = $faker->email;
+			$user->password = Hash::make('123456');
+			$user->save();
+		}
+	}
 }
 
 class CategoriesTableSeeder extends Seeder {

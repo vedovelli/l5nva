@@ -12,6 +12,7 @@ class CategoryRepository implements ICategoryRepository
         } else {
             $categories = Category::paginate($total);
         }
+        \Debugbar::log(['cats' => $categories]);
 
         return $categories;
     }

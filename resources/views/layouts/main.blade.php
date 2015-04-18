@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>SB Admin 2 - Bootstrap Admin Theme</title>
+    <title>Dave Brubeck v{!! env('VERSION') !!}</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="/bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -45,7 +45,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="index.html">SB Admin v2.0</a>
+                <a class="navbar-brand" href="index.html">Dave Brubeck v{!! env('VERSION') !!}</a>
             </div>
             <!-- /.navbar-header -->
 
@@ -245,12 +245,12 @@
                         <i class="fa fa-user fa-fw"></i>  <i class="fa fa-caret-down"></i>
                     </a>
                     <ul class="dropdown-menu dropdown-user">
-                        <li><a href="#"><i class="fa fa-user fa-fw"></i> User Profile</a>
+                        <li><a href="{!! route('profile.index') !!}"><i class="fa fa-user fa-fw"></i> Perfil do Usuário</a>
                         </li>
-                        <li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
+                        <li><a href="{!! route('password.index') !!}"><i class="fa fa-gear fa-fw"></i> Trocar Senha</a>
                         </li>
                         <li class="divider"></li>
-                        <li><a href="login.html"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+                        <li><a href="auth/logout"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
                         </li>
                     </ul>
                     <!-- /.dropdown-user -->
@@ -262,22 +262,21 @@
             <div class="navbar-default sidebar" role="navigation">
                 <div class="sidebar-nav navbar-collapse">
                     <ul class="nav" id="side-menu">
-                        <li class="sidebar-search">
-                            <div class="input-group custom-search-form">
-                                <input type="text" class="form-control" placeholder="Search...">
-                                <span class="input-group-btn">
-                                    <button class="btn btn-default" type="button">
-                                        <i class="fa fa-search"></i>
-                                    </button>
-                                </span>
-                            </div>
-                            <!-- /input-group -->
+
+                        <li>
+                            <a href="{!! route('dashboard.index') !!}">
+                                <i class="fa fa-dashboard fa-fw"></i>
+                                Dashboard
+                            </a>
                         </li>
                         <li>
-                            <a href="{!! route('dashboard.index') !!}"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
+                            <a href="{!! route('category.index') !!}"><i class="fa fa-list fa-fw"></i> Categorias</a>
                         </li>
                         <li>
-                            <a href="{!! route('category.index') !!}"><i class="fa fa-dashboard fa-fw"></i> Categorias</a>
+                            <a href="#"><i class="fa fa-users fa-fw"></i> Usuário</a>
+                        </li>
+                        <li>
+                            <a href="#"><i class="fa fa-files-o fa-fw"></i> Projetos</a>
                         </li>
                     </ul>
                 </div>
