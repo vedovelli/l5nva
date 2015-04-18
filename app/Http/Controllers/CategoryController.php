@@ -2,22 +2,19 @@
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-
-use Illuminate\Http\Request as R;
-
-use App\Category as Category;
-
 use App\Dave\Services\Validators\CategoryValidator;
-
+use App\Dave\Services\Repositories\ICategoryRepository;
 use \Request as Request;
 
 class CategoryController extends Controller {
 
 	protected $validator;
+	protected $repository;
 
-	function __construct(CategoryValidator $validator)
+	function __construct(CategoryValidator $validator, ICategoryRepository $repository)
 	{
 		$this->validator = $validator;
+		$this->repository = $repository;
 	}
 
 	/**
@@ -31,12 +28,7 @@ class CategoryController extends Controller {
 
 		$search = Request::get('search');
 
-		if(!is_null($search) && $search != '')
-		{
-			$categories = Category::where('name', 'like', '%'.$search.'%')->paginate($total);
-		} else {
-			$categories = Category::paginate($total);
-		}
+		$categories = $this->repository->categories($total, $search);
 
 		$loadedCategory = null;
 
@@ -61,11 +53,13 @@ class CategoryController extends Controller {
 	 */
 	public function edit($id)
 	{
-		$categories = Category::all();
+		$search = null;
 
-		$loadedCategory = Category::find($id);
+		$categories = $this->repository->categories(10, $search);
 
-		return view('categories.index')->with(compact('categories', 'loadedCategory'));
+		$loadedCategory = $this->repository->show($id);
+
+		return view('categories.index')->with(compact('categories', 'loadedCategory', 'search'));
 	}
 
 	/**
@@ -74,6 +68,7 @@ class CategoryController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
+
 	public function update($id)
 	{
 		return $this->saveCategory($id);
@@ -87,14 +82,12 @@ class CategoryController extends Controller {
 	 */
 	public function destroy($id)
 	{
-		$category = Category::find($id);
+		$response = $this->repository->destroy($id);
 
-		if(is_null($category))
+		if(is_null($response))
 		{
 			return redirect()->route('category.index')->with('error', 'Categoria não localizada');
 		}
-
-		$response = $category->delete();
 
 		if($response)
 		{
@@ -106,8 +99,6 @@ class CategoryController extends Controller {
 
 	protected function saveCategory($id = null)
 	{
-		
-
 		if(!$this->validator->passes())
 		{
 			return redirect()->route('category.index')->withErrors($this->validator->getErrors())->withInput();
@@ -117,19 +108,14 @@ class CategoryController extends Controller {
 
 		if(!is_null($id))
 		{
-			$category = Category::find($id);
+			$response = $this->repository->update($input, $id);
 			$successMessage = 'Categoria atualizada com sucesso!';
 		} else {
-			$category = new Category();
+			$response = $this->repository->store($input);
 			$successMessage = 'Categoria criada com sucesso!';
 		}
 
-		$category->fill($input);
-
-		$category->save();
-
 		return redirect()->route('category.index')->with('success', $successMessage);
 
-		
 	}
 }
