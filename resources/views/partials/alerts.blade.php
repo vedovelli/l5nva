@@ -15,7 +15,11 @@
 {{-- Quando vier do Validator --}}
 @if(Session::has('errors'))
 <div class="alert alert-danger" role="alert">
-  {!! $errors->first('name') !!}
+    <ul>
+  @foreach($errors->all() as $error)
+    <li>{!! $error !!}</li>
+  @endforeach
+  </ul>
 </div>
 @endif
 

@@ -13,6 +13,15 @@ Route::group(['middleware' => 'auth'], function()
       Route::get('{id}/excluir', ['as' => 'category.destroy', 'uses' => 'CategoryController@destroy']);
     });
 
+    Route::group(['prefix' => 'usuario'], function()
+    {
+      Route::get('', ['as' => 'user.index', 'uses' => 'UserController@index']);
+      Route::post('salvar', ['as' => 'user.store', 'uses' => 'UserController@store']);
+      Route::get('{id}/editar', ['as' => 'user.edit', 'uses' => 'UserController@edit']);
+      Route::post('{id}/atualizar', ['as' => 'user.update', 'uses' => 'UserController@update']);
+      Route::get('{id}/excluir', ['as' => 'user.destroy', 'uses' => 'UserController@destroy']);
+    });
+
     Route::get('perfil', ['as' => 'profile.index', 'uses' => 'ProfileController@profile']);
     Route::get('perfil/editar', ['as' => 'profile.edit', 'uses' => 'ProfileController@edit']);
     Route::post('perfil/atualizar', ['as' => 'profile.update', 'uses' => 'ProfileController@update']);

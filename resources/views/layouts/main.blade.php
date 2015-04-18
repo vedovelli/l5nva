@@ -273,7 +273,7 @@
                             <a href="{!! route('category.index') !!}"><i class="fa fa-list fa-fw"></i> Categorias</a>
                         </li>
                         <li>
-                            <a href="#"><i class="fa fa-users fa-fw"></i> Usuário</a>
+                            <a href="{!! route('user.index') !!}"><i class="fa fa-users fa-fw"></i> Usuário</a>
                         </li>
                         <li>
                             <a href="#"><i class="fa fa-files-o fa-fw"></i> Projetos</a>

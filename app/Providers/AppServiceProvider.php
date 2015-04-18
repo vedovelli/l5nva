@@ -11,7 +11,7 @@ class AppServiceProvider extends ServiceProvider {
 	 */
 	public function boot()
 	{
-		//
+		\View::share('l5nva', 'Curso de Laravel Novatec turma A');
 	}
 
 	/**
@@ -33,6 +33,11 @@ class AppServiceProvider extends ServiceProvider {
 		$this->app->bind(
 			'App\Dave\Services\Repositories\ICategoryRepository',
 			'App\Dave\Services\Repositories\CategoryRepository'
+		);
+
+		$this->app->bind(
+			'App\Dave\Services\Repositories\IUserRepository',
+			'App\Dave\Services\Repositories\UserRepository'
 		);
 	}
 
