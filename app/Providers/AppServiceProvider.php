@@ -11,7 +11,15 @@ class AppServiceProvider extends ServiceProvider {
 	 */
 	public function boot()
 	{
-		\View::share('l5nva', 'Curso de Laravel Novatec turma A');
+		\View::share('datepicker', function($options = [])
+		{
+			$opt = array_merge([
+				'name' => 'nomeQualquer',
+				'id' => 'idQualquer',
+				'value' => date('d/m/Y'),
+			], $options);
+			return view('components.datepicker')->with('options', $opt);
+		});
 	}
 
 	/**

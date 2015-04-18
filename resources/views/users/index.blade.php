@@ -57,6 +57,10 @@
       <input type="hidden" name="_token" value="{!! csrf_token() !!}">
 
       <div class="form-group">
+        {!! $datepicker(['name' => 'dataUsuarios', 'id' => 'usuarios_data', 'value' => '18/11/1988']) !!}
+      </div>
+
+      <div class="form-group">
         <label for="name" class="control-label">Nome</label>
         <input class="form-control" type="text" name="name" value="{!! $loadedUser != null ? $loadedUser->name : old('name') !!}" id="name" autofocus>
       </div>

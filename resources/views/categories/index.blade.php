@@ -54,6 +54,8 @@
 
       <input type="hidden" name="_token" value="{!! csrf_token() !!}">
 
+      {!! $datepicker(['name' => 'nomeDoCampo']) !!}
+
       <div class="form-group">
         <label for="name" class="control-label">Categoria</label>
         <input class="form-control" type="text" name="name" value="{!! $loadedCategory != null ? $loadedCategory->name : old('name') !!}" id="name" autofocus>

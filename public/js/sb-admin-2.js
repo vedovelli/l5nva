@@ -2,6 +2,12 @@ $(function() {
 
     $('#side-menu').metisMenu();
 
+    $('.dave-datepicker').datepicker({
+        format: 'dd/mm/yyyy',
+        autoclose: true,
+        language: 'pt-BR'
+    });
+
 });
 
 //Loads the correct sidebar on window load,
