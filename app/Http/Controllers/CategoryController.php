@@ -7,9 +7,18 @@ use Illuminate\Http\Request as R;
 
 use App\Category as Category;
 
+use App\Dave\Services\Validators\CategoryValidator;
+
 use \Request as Request;
 
 class CategoryController extends Controller {
+
+	protected $validator;
+
+	function __construct(CategoryValidator $validator)
+	{
+		$this->validator = $validator;
+	}
 
 	/**
 	 * Display a listing of the resource.
@@ -97,35 +106,30 @@ class CategoryController extends Controller {
 
 	protected function saveCategory($id = null)
 	{
-		$rules = ['name' => 'required|min:10'];
+		
 
-		$messages = [
-			'name.required' => 'O nome da categoria é obrigatório',
-			'name.min' => 'O nome da categoria precisa ter pelo menos 10 caracteres',
-		];
-
-		$validator = \Validator::make(Request::all(), $rules, $messages);
-
-		if($validator->passes())
+		if(!$this->validator->passes())
 		{
-			$input = Request::all();
-
-			if(!is_null($id))
-			{
-				$category = Category::find($id);
-				$successMessage = 'Categoria atualizada com sucesso!';
-			} else {
-				$category = new Category();
-				$successMessage = 'Categoria criada com sucesso!';
-			}
-
-			$category->fill($input);
-
-			$category->save();
-
-			return redirect()->route('category.index')->with('success', $successMessage);
+			return redirect()->route('category.index')->withErrors($this->validator->getErrors())->withInput();
 		}
 
-		return redirect()->route('category.index')->withErrors($validator)->withInput();
+		$input = Request::all();
+
+		if(!is_null($id))
+		{
+			$category = Category::find($id);
+			$successMessage = 'Categoria atualizada com sucesso!';
+		} else {
+			$category = new Category();
+			$successMessage = 'Categoria criada com sucesso!';
+		}
+
+		$category->fill($input);
+
+		$category->save();
+
+		return redirect()->route('category.index')->with('success', $successMessage);
+
+		
 	}
 }
