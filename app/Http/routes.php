@@ -4,6 +4,11 @@ Route::group(['middleware' => 'auth'], function()
 {
     Route::get('dashboard', ['as' => 'dashboard.index', 'uses' => 'DashboardController@index']);
 
+    Route::group(['prefix' => 'projeto'], function()
+    {
+      Route::get('', ['as' => 'project.index', 'uses' => 'ProjectController@index']);
+    });
+
     Route::group(['prefix' => 'categoria'], function()
     {
       Route::get('', ['as' => 'category.index', 'uses' => 'CategoryController@index']);

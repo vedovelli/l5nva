@@ -265,7 +265,7 @@
                             <a href="{!! route('user.index') !!}"><i class="fa fa-users fa-fw"></i> Usuário</a>
                         </li>
                         <li>
-                            <a href="#"><i class="fa fa-files-o fa-fw"></i> Projetos</a>
+                            <a href="{!! route('project.index') !!}"><i class="fa fa-files-o fa-fw"></i> Projetos</a>
                         </li>
                     </ul>
                 </div>
