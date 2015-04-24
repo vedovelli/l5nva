@@ -4,17 +4,21 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Dave\Services\Validators\UserValidator;
 use App\Dave\Services\Repositories\IUserRepository;
+use App\Dave\Services\Repositories\IProjectRepository;
 use \Request as Request;
+use \Response as Response;
 
 class UserController extends Controller {
 
 	protected $validator;
 	protected $repository;
+	protected $projectRepository;
 
-	function __construct(UserValidator $validator, IUserRepository $repository)
+	function __construct(UserValidator $validator, IUserRepository $repository, IProjectRepository $projectRepository)
 	{
 		$this->validator = $validator;
 		$this->repository = $repository;
+		$this->projectRepository = $projectRepository;
 	}
 
 	/**
@@ -124,5 +128,21 @@ class UserController extends Controller {
 
 		return redirect()->route('user.index')->with('success', $successMessage);
 
+	}
+
+	public function projects($id)
+	{
+		$user = $this->repository->show($id);
+
+		$projectsAsOwner = $user->projects;
+
+		$projectsAsMember = $this->projectRepository->projectsUserIsMember($id);
+
+		return view('users.projects')->with(compact('user', 'projectsAsOwner', 'projectsAsMember'));
+	}
+
+	public function current()
+	{
+		return Response::json(\Auth::getUser()->toArray(), 200);
 	}
 }

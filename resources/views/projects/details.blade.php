@@ -1,4 +1,4 @@
-@extends('layout.sbadmin', ['feature' => 'project'])
+@extends('layouts.main')
 
 @section('content')
 
@@ -26,7 +26,7 @@
     <a href="{!! route('project.edit', ['id' => $project->id]) !!}"><i class="fa fa-pencil"></i> editar</a>
   </div>
   <div class="col-md-6 text-right">
-    <small>Atualizado {!!Carbon::parse($project->updated_at)->diffForHumans()!!}</small>
+    <small>Atualizado {!! $project->updated_at !!}</small>
   </div>
 </div>
 
@@ -90,11 +90,5 @@
     </div>
   </div>
 </div>
-
-@section('scripts')
-@parent
-<script src="/bower_components/markdown/lib/markdown.js"></script>
-<script src="/js/project/project.js"></script>
-@endsection
 
 @endsection

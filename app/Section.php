@@ -1,4 +1,4 @@
-<?php namespace App\Models;
+<?php namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -10,12 +10,12 @@ class Section extends Model {
 
   public function project()
   {
-    return $this->belongsTo('App\Models\Project');
+    return $this->belongsTo('App\Project');
   }
 
   public function pages()
   {
-    return $this->hasMany('App\Models\Page');
+    return $this->hasMany('App\Page');
   }
 
 }

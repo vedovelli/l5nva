@@ -20,6 +20,12 @@ elixir(function(mix) {
         '/../bower_components/bootstrap-datepicker/dist/locales/bootstrap-datepicker.pt-BR.min.js',
         '/../bower_components/select2/select2.js',
         '/../bower_components/markdown/lib/markdown.js',
+        'page.js',
+        'project.js',
+        'dashboard.js',
+        'login.js',
+        'user.js',
+        'category.js',
         'sb-admin-2.js',
     ], 'public/js/dave.js');
 

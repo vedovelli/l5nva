@@ -1,4 +1,4 @@
-@extends('layout.sbadmin', ['feature' => 'project'])
+@extends('layouts.main')
 
 @section('content')
 
@@ -37,11 +37,5 @@
     </a>
   </div>
 </div>
-
-@section('scripts')
-@parent
-<script src="/bower_components/markdown/lib/markdown.js"></script>
-<script src="/js/page/page.js"></script>
-@endsection
 
 @endsection

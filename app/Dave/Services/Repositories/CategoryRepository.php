@@ -6,13 +6,17 @@ class CategoryRepository implements ICategoryRepository
 {
     public function categories($total, $search = null)
     {
-        if(!is_null($search) && $search != '')
+        if(is_null($total))
         {
-            $categories = Category::where('name', 'like', '%'.$search.'%')->paginate($total);
+          $categories = Category::all();
         } else {
-            $categories = Category::paginate($total);
+          if(!is_null($search) && $search != '')
+          {
+              $categories = Category::where('name', 'like', '%'.$search.'%')->paginate($total);
+          } else {
+              $categories = Category::paginate($total);
+          }
         }
-        \Debugbar::log(['cats' => $categories]);
 
         return $categories;
     }
@@ -22,7 +26,9 @@ class CategoryRepository implements ICategoryRepository
   {
     $allCategories = [];
 
-    $categoriesOriginal = $this->categories(null, false)->toArray(); // search == null && paginate == false
+    $paginate = null;
+
+    $categoriesOriginal = $this->categories($paginate)->toArray(); // search == null && paginate == false
 
     foreach ($categoriesOriginal as $value) {
       $allCategories[$value['id']] = $value['name']; // formato para Form::select()

@@ -5,10 +5,9 @@ use \Auth as Auth;
 use \Request as Request;
 use \Response as Response;
 
-
 use \App\Dave\Services\Validators\PageValidator as Validator;
 
-use \App\Dave\Repositories\IPageRepository as PageRepository;
+use \App\Dave\Services\Repositories\IPageRepository as PageRepository;
 
 class PageController extends Controller
 {

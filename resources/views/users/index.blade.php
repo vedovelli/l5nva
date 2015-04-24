@@ -49,9 +49,9 @@
   <div class="col-md-6">
 
     @if($loadedUser != null)
-    <form action="{!! route('user.update',['id' => $loadedUser->id]) !!}" method="post">
+    <form action="{!! route('user.update',['id' => $loadedUser->id]) !!}" method="post" id="user-form">
     @else
-    <form action="{!! route('user.store') !!}" method="post">
+    <form action="{!! route('user.store') !!}" method="post" id="user-form">
     @endif
 
       <input type="hidden" name="_token" value="{!! csrf_token() !!}">
@@ -82,7 +82,10 @@
 
       <div class="row">
         <div class="col-md-12 text-right">
-          <button class="btn btn-success">Salvar</button>
+          <button class="btn btn-success dave-btn-salvar" data-loading-text="Salvando...">
+            <i class="fa fa-save"></i>
+            Salvar
+          </button>
         </div>
       </div>
 

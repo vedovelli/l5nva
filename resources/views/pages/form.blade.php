@@ -1,4 +1,4 @@
-@extends('layout.sbadmin', ['feature' => 'project'])
+@extends('layouts.main')
 
 @section('content')
 
@@ -81,16 +81,13 @@
     </a>
   </div>
   <div class="col-md-6 text-right">
-    @include('partials.daveBtnSalvar', ['label' => 'Salvar Página'])
+    <button class="btn btn-primary dave-btn-salvar" data-loading-text="Salvando...">
+      <i class="fa fa-save"></i>
+      Salvar
+    </button>
   </div>
 </div>
 
 {!! Form::close() !!}
-
-@section('scripts')
-@parent
-<script src="/bower_components/markdown/lib/markdown.js"></script>
-<script src="/js/page/page.js"></script>
-@endsection
 
 @endsection

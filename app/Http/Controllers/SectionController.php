@@ -3,7 +3,7 @@
 use \Request as Request;
 use \Response as Response;
 
-use App\Dave\Repositories\ISectionRepository as Sections;
+use App\Dave\Services\Repositories\ISectionRepository as Sections;
 
 class SectionController extends Controller
 {

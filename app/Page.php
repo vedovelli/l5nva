@@ -1,4 +1,4 @@
-<?php namespace App\Models;
+<?php namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -10,11 +10,11 @@ class Page extends Model
 
   public function section()
   {
-    return $this->belongsTo('App\Models\Section', 'section_id');
+    return $this->belongsTo('App\Section', 'section_id');
   }
 
   public function user()
   {
-    return $this->belongsTo('App\Models\User', 'user_id');
+    return $this->belongsTo('App\User', 'user_id');
   }
 }

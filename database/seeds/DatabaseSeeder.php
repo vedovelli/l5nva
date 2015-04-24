@@ -36,7 +36,7 @@ class UsersTableSeeder extends Seeder
 		$user = new User();
 		$user->name = 'Ved';
 		$user->email = 'vedovelli@gmail.com';
-		$user->password = Hash::make('123456');
+		$user->password = 123456;
 		$user->save();
 
 		for($i = 1; $i < 150; $i++)
@@ -44,7 +44,7 @@ class UsersTableSeeder extends Seeder
 			$user = new User();
 			$user->name = $faker->name;
 			$user->email = $faker->email;
-			$user->password = Hash::make('123456');
+			$user->password = 123456;
 			$user->save();
 		}
 	}

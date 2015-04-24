@@ -1,5 +1,13 @@
 <?php
 
+Route::group(['prefix' => 'api', 'middleware' => 'auth.basic'], function()
+{
+  Route::get('projetos', ['uses' => 'ProjectController@projectsForSelect']);
+  Route::get('categorias', ['uses' => 'CategoryController@index']);
+  Route::get('usuarios', ['uses' => 'UserController@index']);
+  Route::get('usuario-logado', ['uses' => 'UserController@current']);
+});
+
 Route::group(['middleware' => 'auth'], function()
 {
     Route::get('dashboard', ['as' => 'dashboard.index', 'uses' => 'DashboardController@index']);
@@ -32,6 +40,16 @@ Route::group(['middleware' => 'auth'], function()
 
     });
 
+    Route::group(['prefix' => 'pagina'], function()
+    {
+      Route::post('{project_id}/secao/{section_id}/pagina/salvar', ['as' => 'page.save', 'uses' => 'PageController@store']);
+      Route::get('{page_id}/editar', ['as' => 'page.edit', 'uses' => 'PageController@edit']);
+      Route::post('{page_id}/atualizar', ['as' => 'page.update', 'uses' => 'PageController@update']);
+      Route::get('{page_id}/remover', ['as' => 'page.remove', 'uses' => 'PageController@remove']);
+      Route::get('{page_id}', ['as' => 'page.show', 'uses' => 'PageController@show']);
+    });
+
+
     Route::group(['prefix' => 'categoria'], function()
     {
       Route::get('', ['as' => 'category.index', 'uses' => 'CategoryController@index']);
@@ -39,6 +57,7 @@ Route::group(['middleware' => 'auth'], function()
       Route::get('{id}/editar', ['as' => 'category.edit', 'uses' => 'CategoryController@edit']);
       Route::post('{id}/atualizar', ['as' => 'category.update', 'uses' => 'CategoryController@update']);
       Route::get('{id}/excluir', ['as' => 'category.destroy', 'uses' => 'CategoryController@destroy']);
+      Route::get('{id}/projetos', ['as' => 'category.projects', 'uses' => 'CategoryController@projects']);
     });
 
     Route::group(['prefix' => 'usuario'], function()
@@ -48,6 +67,7 @@ Route::group(['middleware' => 'auth'], function()
       Route::get('{id}/editar', ['as' => 'user.edit', 'uses' => 'UserController@edit']);
       Route::post('{id}/atualizar', ['as' => 'user.update', 'uses' => 'UserController@update']);
       Route::get('{id}/excluir', ['as' => 'user.destroy', 'uses' => 'UserController@destroy']);
+      Route::get('{id}/projetos', ['as' => 'user.projects', 'uses' => 'UserController@projects']);
     });
 
     Route::get('perfil', ['as' => 'profile.index', 'uses' => 'ProfileController@profile']);

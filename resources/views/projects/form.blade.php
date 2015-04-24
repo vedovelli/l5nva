@@ -1,4 +1,4 @@
-@extends('layout.sbadmin', ['feature' => 'project'])
+@extends('layouts.main')
 
 @section('content')
 
@@ -63,15 +63,13 @@
     @endif
   </div>
   <div class="col-md-6 text-right">
-    @include('partials.daveBtnSalvar')
+    <button class="btn btn-success dave-btn-salvar" type="submit" data-loading-text="Salvando...">
+      <i class="fa fa-save"></i>
+      Salvar
+    </button>
   </div>
 </div>
 
 {!!Form::close()!!}
 
-@endsection
-
-@section('scripts')
-@parent
-<script src="/js/project/project.js"></script>
 @endsection

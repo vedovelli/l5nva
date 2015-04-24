@@ -8,22 +8,22 @@ class Project extends Model {
 
     public function members()
     {
-    return $this->belongsToMany('User');
+        return $this->belongsToMany('App\User');
     }
 
     public function categories()
     {
-    return $this->belongsToMany('Category');
+        return $this->belongsToMany('App\Category');
     }
 
     public function owner()
     {
-    return $this->belongsTo('User', 'user_id');
+        return $this->belongsTo('App\User', 'user_id');
     }
 
     public function sections()
     {
-    return $this->hasMany('Section', 'project_id');
+        return $this->hasMany('App\Section', 'project_id');
     }
 
 }

@@ -1,8 +1,8 @@
 <?php namespace App\Dave\Services\Repositories;
 
-use App\Project;
-use App\User;
-use App\Category;
+use App\Project as Project;
+use App\User as User;
+use App\Category as Category;
 use \DB as DB;
 
 class ProjectRepository implements IProjectRepository

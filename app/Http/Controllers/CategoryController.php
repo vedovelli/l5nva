@@ -97,6 +97,15 @@ class CategoryController extends Controller {
 		return redirect()->route('category.index')->with('error', 'Erro ao excluir categoria');
 	}
 
+	public function projects($id)
+	{
+		$category = $this->repository->show($id);
+
+		$projects = $category->projects;
+
+		return view('categories.projects')->with(compact('category', 'projects'));
+	}
+
 	protected function saveCategory($id = null)
 	{
 		if(!$this->validator->passes())
