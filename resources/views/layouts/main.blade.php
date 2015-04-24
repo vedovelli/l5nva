@@ -11,7 +11,7 @@
 
     <title>Dave Brubeck v{!! env('VERSION') !!}</title>
 
-    <link rel="stylesheet" href="{!! elixir('css/dave.css') !!}">
+    <link rel="stylesheet" href="/css/dave.css">
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -292,7 +292,7 @@
     </div>
     <!-- /#wrapper -->
 
-    <script src="{!! elixir('js/dave.js') !!}"></script>
+    <script src="/js/dave.js"></script>
 
 </body>
 

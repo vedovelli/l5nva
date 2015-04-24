@@ -19,6 +19,7 @@ elixir(function(mix) {
         '/../bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.js',
         '/../bower_components/bootstrap-datepicker/dist/locales/bootstrap-datepicker.pt-BR.min.js',
         '/../bower_components/select2/select2.js',
+        '/../bower_components/markdown/lib/markdown.js',
         'sb-admin-2.js',
     ], 'public/js/dave.js');
 
@@ -28,11 +29,12 @@ elixir(function(mix) {
         '/../bower_components/font-awesome/css/font-awesome.min.css',
         '/../bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css',
         '/../bower_components/select2/select2.css',
+        '/../bower_components/select2-bootstrap/select2-bootstrap.css',
         'sb-admin-2.css',
     ], 'public/css/dave.css');
 
-    mix.version([
-        'public/css/dave.css',
-        'public/js/dave.js'
-    ]);
+    // mix.version([
+    //     'public/css/dave.css',
+    //     'public/js/dave.js'
+    // ]);
 });

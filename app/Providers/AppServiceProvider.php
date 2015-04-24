@@ -47,6 +47,21 @@ class AppServiceProvider extends ServiceProvider {
 			'App\Dave\Services\Repositories\IUserRepository',
 			'App\Dave\Services\Repositories\UserRepository'
 		);
+
+		$this->app->bind(
+			'App\Dave\Services\Repositories\IProjectRepository',
+			'App\Dave\Services\Repositories\ProjectRepository'
+		);
+
+		$this->app->bind(
+			'App\Dave\Services\Repositories\ISectionRepository',
+			'App\Dave\Services\Repositories\SectionRepository'
+		);
+
+		$this->app->bind(
+			'App\Dave\Services\Repositories\IPageRepository',
+			'App\Dave\Services\Repositories\PageRepository'
+		);
 	}
 
 }

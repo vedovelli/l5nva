@@ -4,9 +4,32 @@ Route::group(['middleware' => 'auth'], function()
 {
     Route::get('dashboard', ['as' => 'dashboard.index', 'uses' => 'DashboardController@index']);
 
+    /**
+    * Projetos
+    */
     Route::group(['prefix' => 'projeto'], function()
     {
+      /**
+      * Project
+      */
       Route::get('', ['as' => 'project.index', 'uses' => 'ProjectController@index']);
+      Route::get('{id}/detalhes', ['as' => 'project.show', 'uses' => 'ProjectController@show']);
+      Route::get('novo', ['as' => 'project.create', 'uses' => 'ProjectController@create']);
+      Route::post('salvar', ['as' => 'project.store', 'uses' => 'ProjectController@store']);
+      Route::get('{id}/editar', ['as' => 'project.edit', 'uses' => 'ProjectController@edit']);
+      Route::post('{id}/atualizar', ['as' => 'project.update', 'uses' => 'ProjectController@update']);
+
+      /**
+      * Section
+      */
+      Route::post('{id}/secao', ['as' => 'section', 'uses' => 'SectionController@store']);
+      Route::get('{id}/secao/{section_id}/remover', ['as' => 'section.remove', 'uses' => 'SectionController@destroy']);
+
+      /**
+      * Criar nova pagina
+      */
+      Route::get('{project_id}/secao/{section_id}/pagina/criar', ['as' => 'page.create', 'uses' => 'PageController@create']);
+
     });
 
     Route::group(['prefix' => 'categoria'], function()
