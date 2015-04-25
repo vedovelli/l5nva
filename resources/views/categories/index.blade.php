@@ -25,7 +25,7 @@
         </tr>
       </thead>
       <tbody>
-        @foreach($categories as $category)
+        @foreach($categorias as $category)
         <tr>
           <td width="1%" nowrap>{!! $category->id !!}</td>
           <td>{!! $category->name !!}</td>
@@ -39,7 +39,7 @@
 
     <div class="row">
       <div class="col-md-12 text-center">
-        {!! $categories->render() !!}
+        {!! $categorias->render() !!}
       </div>
     </div>
 

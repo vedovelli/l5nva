@@ -21,7 +21,6 @@ class CategoryRepository implements ICategoryRepository
         return $categories;
     }
 
-
   public function categoriesForSelect()
   {
     $allCategories = [];

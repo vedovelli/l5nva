@@ -28,11 +28,11 @@ class CategoryController extends Controller {
 
 		$search = Request::get('search');
 
-		$categories = $this->repository->categories($total, $search);
+		$categorias = $this->repository->categories($total, $search);
 
 		$loadedCategory = null;
 
-		return view('categories.index')->with(compact('categories', 'loadedCategory', 'search'));
+		return view('categories.index')->with(compact('categorias', 'loadedCategory', 'search'));
 	}
 
 	/**

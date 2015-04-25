@@ -1,5 +1,7 @@
 <?php namespace App\Dave\Services\Repositories;
 
+use Illuminate\Foundation\Bus\DispatchesCommands;
+
 use App\Project as Project;
 use App\User as User;
 use App\Category as Category;
@@ -7,73 +9,43 @@ use \DB as DB;
 
 class ProjectRepository implements IProjectRepository
 {
+  use DispatchesCommands;
+
   public function projects($search = null, $categories = null, $orderby = null, $paginate = true)
   {
     $result = null;
 
-    /**
-    * As buscas não são complementares: ou se filtra por termo ou por categoria(s)
-    * mas nunca por ambos.
-    */
-
     if($paginate)
     {
-      /**
-      * SEARCH
-      * Se existe um termo de busca, retorna a lista filtrada pelo termo
-      */
       if(!is_null($search) && !empty($search))
       {
         return Project::where('name', 'like', "%$search%")->paginate(env('PAGINATION_ITEMS', 10));
       }
 
-      /**
-      * CATEGORIES
-      * Se existe uma ou mais categoria(s), retorna a lista filtrada por ela(s)
-      */
       if(!is_null($categories) && !empty($categories))
       {
-        /**
-        * Compila-se uma lista distinta projetos associados às caregorias informadas
-        */
         $projectsFromCategories = DB::table('category_project')->whereIn('category_id', $categories)->distinct()->get(['project_id']);
 
         $projectIds = [];
 
-        /**
-        * Compila-se uma lista apenas com os IDs dos projetos pois
-        * a lista acima possui array com objetos: [0 => StdClass('project_id': 1)]
-        */
         foreach ($projectsFromCategories as $value) {
           $projectIds[] = $value->project_id;
         }
 
-        /**
-        * Por fim retorna-se a lista dos projetos
-        */
         return Project::whereIn('id', $projectIds)->paginate(env('PAGINATION_ITEMS', 10));
       }
 
-      /**
-      * ORDER BY
-      * Se existe ordenação, retorna a lista ordenada pela instrução recebida
-      */
       if(!is_null($orderby) && !empty($orderby))
       {
+
         $order = explode('|', $orderby);
 
         return Project::orderBy($order[0], $order[1])->paginate(env('PAGINATION_ITEMS', 10));
       }
 
-      /**
-      * Caso nem exista nem termo de busca nem categorias, retorna-se a lista completa, paginada.
-      */
       return Project::paginate(env('PAGINATION_ITEMS', 10));
     }
 
-    /**
-    * Este, sem paginação, visa atender à API
-    */
     return Project::where('name', 'like', "%$search%")->get();
   }
 
@@ -118,17 +90,15 @@ class ProjectRepository implements IProjectRepository
     $project->fill($request);
     $project->save();
 
-    /**
-    * Membros
-    */
     foreach ($request['members'] as $user_id) {
       $user = User::find($user_id);
       $project->members()->save($user);
+      // $this->sendMail($user, $project);
+      $this->dispatch(
+        new \App\Commands\SendMailCommand($project, $user)
+      );
     }
 
-    /**
-    * Categorias
-    */
     foreach ($request['categories'] as $category_id) {
       $category = Category::find($category_id);
       $project->categories()->save($category);
@@ -137,19 +107,27 @@ class ProjectRepository implements IProjectRepository
     return $project;
   }
 
+  // private function sendMail($user, $project)
+  // {
+
+  //   $user_name = $user->name;
+
+  //   $project_name = $project->name;
+
+  //   $link = url().'/projeto/'.$project->id.'/detalhes';
+
+  //   \Mail::send('emails.project_member', compact('user_name', 'project_name', 'link'), function($message) use ($user, $project)
+  //   {
+  //       $message->to($user->email, $user->name)->subject('[Dave Brubeck] Você foi adicionado como membro do projeto ' . $project->name);
+  //   });
+  // }
+
   public function update($id, $request)
   {
-
-    /**
-    * TODO implementar atualizacao de membros e categorias
-    */
     $project = Project::find($id);
     $project->fill($request);
     $project->save();
 
-    /**
-    * Membros
-    */
     foreach ($project->members as $member) {
       $project->members()->detach($member);
     }
@@ -159,9 +137,6 @@ class ProjectRepository implements IProjectRepository
       $project->members()->save($user);
     }
 
-    /**
-    * Categorias
-    */
     foreach ($project->categories as $category) {
       $project->categories()->detach($category);
     }

@@ -8,7 +8,7 @@ Route::group(['prefix' => 'api', 'middleware' => 'auth.basic'], function()
   Route::get('usuario-logado', ['uses' => 'UserController@current']);
 });
 
-Route::group(['middleware' => 'auth'], function()
+Route::group([], function()
 {
     Route::get('dashboard', ['as' => 'dashboard.index', 'uses' => 'DashboardController@index']);
 
@@ -21,7 +21,7 @@ Route::group(['middleware' => 'auth'], function()
       * Project
       */
       Route::get('', ['as' => 'project.index', 'uses' => 'ProjectController@index']);
-      Route::get('{id}/detalhes', ['as' => 'project.show', 'uses' => 'ProjectController@show']);
+      Route::get('{id}/detalhes', ['middleware' => 'project', 'as' => 'project.show', 'uses' => 'ProjectController@show']);
       Route::get('novo', ['as' => 'project.create', 'uses' => 'ProjectController@create']);
       Route::post('salvar', ['as' => 'project.store', 'uses' => 'ProjectController@store']);
       Route::get('{id}/editar', ['as' => 'project.edit', 'uses' => 'ProjectController@edit']);

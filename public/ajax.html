@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>teste</title>
+</head>
+<body>
+    <script src="js/dave.js"></script>
+    <script>
+    $.getJSON('/api/projetos')
+    .then(function(data)
+    {
+        window.console.log(data);
+    })
+    .fail(function(data)
+    {
+        window.console.log(data);
+    });
+    </script>
+</body>
+</html>

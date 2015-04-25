@@ -14,7 +14,7 @@ use \App\Dave\Services\Validators\ProjectValidator as Validator;
 class ProjectController extends Controller {
 
 	protected $projectRepository;
-	protected $categorieRepository;
+	protected $categoriesRepository;
 	protected $userRepository;
 	protected $validator;
 
@@ -23,12 +23,12 @@ class ProjectController extends Controller {
 	*/
 	function __construct(
 		Projects $projectRepository,
-		Categories $categorieRepository,
+		Categories $categoriesRepository,
 		Users $userRepository,
 		Validator $validator
 	){
 		$this->projectRepository = $projectRepository;
-		$this->categorieRepository = $categorieRepository;
+		$this->categoriesRepository = $categoriesRepository;
 		$this->userRepository = $userRepository;
 		$this->validator = $validator;
 	}
@@ -52,17 +52,17 @@ class ProjectController extends Controller {
 		}
 
 		if(Request::ajax())
-    {
-      $paginate = false;
+		{
+			$paginate = false;
 
-      $projects = $this->projectRepository->projects($search, $paginate);
+			$projects = $this->projectRepository->projects($search, $paginate);
 
-      return Response::json($projects, 200);
-    }
+			return Response::json($projects, 200);
+		}
 
 		$projects = $this->projectRepository->projects($search, $categories, $orderby);
 
-		$categoryList = $this->categorieRepository->categoriesWithProjects();
+		$categoryList = $this->categoriesRepository->categoriesWithProjects();
 
 		return view('projects.index')->with(compact('projects', 'categoryList', 'search', 'categories', 'orderby'));
 	}
@@ -162,7 +162,7 @@ class ProjectController extends Controller {
 			}
 		}
 
-		$allCategories = $this->categorieRepository->categoriesForSelect();
+		$allCategories = $this->categoriesRepository->categoriesForSelect();
 
 		$allUsers = $this->userRepository->usersForSelect();
 
