@@ -8,7 +8,7 @@ Route::group(['prefix' => 'api', 'middleware' => 'auth.basic'], function()
   Route::get('usuario-logado', ['uses' => 'UserController@current']);
 });
 
-Route::group([], function()
+Route::group(['middleware' => 'auth'], function()
 {
     Route::get('dashboard', ['as' => 'dashboard.index', 'uses' => 'DashboardController@index']);
 
